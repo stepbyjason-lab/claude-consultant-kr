@@ -1,0 +1,45 @@
+{
+  "name": "consultant-kr-cli",
+  "version": "0.3.0",
+  "description": "한국 시장 컨텍스트로 맥킨지식 사업 전략을 분석하는 비공식 Claude Code 에이전트 패키지 (Claude is a trademark of Anthropic, PBC)",
+  "bin": {
+    "consultant-kr-cli": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "agents/",
+    "commands/",
+    "hooks/",
+    "scripts/",
+    "docs/",
+    "examples/",
+    ".env.example",
+    "README.md",
+    "README.en.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "claude-code",
+    "anthropic",
+    "agent",
+    "korean",
+    "consultant",
+    "business-strategy",
+    "mckinsey"
+  ],
+  "author": "gaebalai",
+  "license": "MIT",
+  "homepage": "https://github.com/gaebalai/claude-consultant-kr#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaebalai/claude-consultant-kr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gaebalai/claude-consultant-kr/issues"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

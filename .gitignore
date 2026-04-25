@@ -1,0 +1,37 @@
+# 환경변수
+.env
+.env.local
+.env.*.local
+
+# 로그
+logs/
+*.log
+
+# 리포트 (실제 분석 결과는 리포에 커밋하지 않음)
+reports/
+blog-drafts/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+npm-debug.log
+
+# 임시 파일
+*.bak
+*.tmp
+*~
+
+# Claude Code 로컬 상태 (프로젝트에 따라 다름)
+.claude/settings.local.json

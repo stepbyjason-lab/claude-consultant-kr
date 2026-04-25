@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  shellcheck:
+    name: Shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './scripts'
+          severity: warning
+      - name: Run ShellCheck on hooks
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './hooks/scripts'
+          severity: warning
+
+  markdown-lint:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Markdown Lint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: |
+            **/*.md
+            !node_modules
+            !.github
+        continue-on-error: true
+
+  yaml-validation:
+    name: Validate settings.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON
+        run: |
+          python -m json.tool hooks/settings.json > /dev/null && echo "✓ hooks/settings.json is valid"
+
+  frontmatter-check:
+    name: Validate Agent/Command frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check frontmatter
+        run: |
+          for f in agents/*.md commands/*.md; do
+            [ "$(basename "$f")" = "USAGE.md" ] && continue
+            if ! head -1 "$f" | grep -q "^---$"; then
+              echo "✗ $f: frontmatter start marker missing"
+              exit 1
+            fi
+            echo "✓ $f"
+          done
