@@ -145,7 +145,9 @@ npx consultant-kr-cli@latest industry --local    # 대화형
 
 #### 🔌 외부 연동: Humanize KR (선택)
 
-[epoko77-ai/im-not-ai](https://github.com/epoko77-ai/im-not-ai) 의 "한글 AI 티 제거기" 스킬을 함께 설치할 수 있습니다. 분석 리포트 초안의 AI 문체를 자연스러운 한국어로 윤문할 때 유용합니다.
+[gaebalai/im-not-ai](https://github.com/gaebalai/im-not-ai) (MIT, `epoko77-ai/im-not-ai` 의 fork) 의 "한글 AI 티 제거기" 를 함께 설치할 수 있습니다. 분석 리포트 초안의 AI 문체를 자연스러운 한국어로 윤문할 때 유용하며, 우리 분석 커맨드 4종에 자동 통합됩니다.
+
+설치되는 항목: 에이전트 6개 + 슬래시 커맨드 6개 (`/humanize`, `/humanize-detect`, `/humanize-redo`, `/humanize-status`, `/humanize-list`, `/humanize-web`) + 스킬 1개 (`humanize-korean`) + LICENSE 사본.
 
 ```bash
 npx consultant-kr-cli@latest humanize --local    # 프로젝트 로컬
@@ -157,26 +159,34 @@ npx consultant-kr-cli@latest humanize --uninstall
 npx consultant-kr-cli@latest humanize --local --yes
 ```
 
-설치 후 `claude` 세션에서 자연어로 호출됩니다 (별도 슬래시 커맨드 없음).
+설치 후 다음 두 가지 방식으로 활용할 수 있습니다.
+
+**1. 자동 통합** — `/analyze-business` 등 분석 커맨드를 호출하면 결과 출력 후 자동으로 한국어 윤문이 적용됩니다 (스킬이 설치돼 있을 때만).
+
+**2. 직접 호출** — 슬래시 커맨드 또는 자연어로 직접 호출:
 
 ```text
-> AI 티 없애줘
-> 사람이 쓴 것처럼 윤문해줘
-> 번역투 제거
+> /humanize <텍스트 또는 파일 경로>
+> /humanize-detect <텍스트>      # AI 티 탐지만
+> /refine-report                  # 가장 최근 분석 리포트 윤문
+> AI 티 없애줘                    # 자연어 트리거
 ```
 
-> ⚠ **라이선스 고지**: 원본 리포에 LICENSE 파일이 명시되어 있지 않습니다. 본 패키지는 원본을 재배포하지 않고, 설치 시점에 사용자 환경에서 GitHub raw URL 로 직접 다운로드만 수행합니다. 원본 저작권은 원작자에게 있으며 사용 책임은 사용자에게 있습니다. 설치 스크립트는 진행 전 명시적 동의를 요구합니다.
+> ℹ **라이선스**: 원본 리포 [`gaebalai/im-not-ai`](https://github.com/gaebalai/im-not-ai) 는 **MIT 라이선스**로 배포됩니다. 본 패키지는 원본을 재배포하지 않고, 설치 시점에 사용자 환경에서 GitHub raw URL 로 직접 다운로드를 수행하며, 원본 LICENSE 사본도 함께 받아 보존합니다.
 >
-> ⚠ **업스트림 추적 위험**: 설치는 `epoko77-ai/im-not-ai` 의 `main` 브랜치를 fetch 합니다. 원본이 향후 변경되면(악성 코드 포함 가능성) 다음 설치/재설치 시 사용자 환경에 그대로 들어옵니다. 운영 환경에서는 한 번 설치 후 업그레이드를 신중히 검토하세요. (특정 commit 핀 옵션은 향후 추가 예정)
+> ⚠ **업스트림 추적 안내**: 설치는 `gaebalai/im-not-ai` 의 `main` 브랜치를 fetch 합니다. 원본이 향후 변경되면 다음 설치/재설치 시 그대로 적용됩니다. 운영 환경에서는 한 번 설치 후 업그레이드를 신중히 검토하세요. (특정 commit 핀 옵션은 0.4.0+ 마일스톤 예정)
 
 ### 2. Slash Commands (`commands/`)
 
 | 커맨드 | 용도 | 인자 예시 |
 |---|---|---|
-| `/analyze-business` | 전체 사업 전략 분석 + 자동 리포트 저장 | `MVP 론칭 전 2주 과제` |
-| `/design-pricing` | 원화 · VAT · 연간할인 반영 3단계 가격안 | `소상공인 B2C SaaS` |
-| `/benchmark-competitors` | 국내 경쟁사 벤치마킹 (3C + SWOT) | `노코드 홈페이지 빌더` |
-| `/prioritize-features` | RICE + 파레토 기반 우선순위 판단 | `기능 7개 중 3개 선정` |
+| `/analyze-business` | 전체 사업 전략 분석 + 자동 리포트 저장 + (옵션) 한국어 윤문 | `MVP 론칭 전 2주 과제` |
+| `/design-pricing` | 원화 · VAT · 연간할인 반영 3단계 가격안 + (옵션) 한국어 윤문 | `소상공인 B2C SaaS` |
+| `/benchmark-competitors` | 국내 경쟁사 벤치마킹 (3C + SWOT) + (옵션) 한국어 윤문 | `노코드 홈페이지 빌더` |
+| `/prioritize-features` | RICE + 파레토 기반 우선순위 판단 + (옵션) 한국어 윤문 | `기능 7개 중 3개 선정` |
+| `/refine-report` 🆕 | 기존 리포트를 humanize-korean 으로 사후 윤문 (`*-refined.md` 별도 저장) | (생략 시 가장 최근 리포트) |
+
+> "한국어 윤문" 단계는 `humanize-korean` 스킬 설치 시에만 동작합니다. 미설치 시 한 줄 안내만 출력되고 건너뜁니다. 설치: `npx consultant-kr-cli@latest humanize --local`
 
 ### 3. Hooks (`hooks/`)
 

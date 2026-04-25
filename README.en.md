@@ -145,7 +145,9 @@ See [`agents/industry/README.md`](./agents/industry/README.md) for details.
 
 #### 🔌 External integration: Humanize KR (optional)
 
-Optionally install the [epoko77-ai/im-not-ai](https://github.com/epoko77-ai/im-not-ai) "Korean AI-tell remover" skill alongside this package. Useful for polishing analysis report drafts into natural Korean prose.
+Optionally install the [gaebalai/im-not-ai](https://github.com/gaebalai/im-not-ai) "Korean AI-tell remover" (MIT, fork of `epoko77-ai/im-not-ai`) alongside this package. Useful for polishing analysis report drafts into natural Korean prose, with automatic integration into our 4 analysis commands.
+
+Installs: 6 agents + 6 slash commands (`/humanize`, `/humanize-detect`, `/humanize-redo`, `/humanize-status`, `/humanize-list`, `/humanize-web`) + 1 skill (`humanize-korean`) + LICENSE copy.
 
 ```bash
 npx consultant-kr-cli@latest humanize --local      # project-local
@@ -157,26 +159,34 @@ npx consultant-kr-cli@latest humanize --uninstall
 npx consultant-kr-cli@latest humanize --local --yes
 ```
 
-After install, invoke via natural language inside a `claude` session — no slash command needed:
+After install, you can use it in two ways:
+
+**1. Automatic integration** — When you call `/analyze-business` and other analysis commands, Korean refinement is applied to the output automatically (only if the skill is installed).
+
+**2. Direct invocation** — Slash commands or natural language:
 
 ```text
-> AI 티 없애줘            (remove AI tells)
-> 사람이 쓴 것처럼 윤문해줘  (rewrite as if a human wrote it)
-> 번역투 제거             (remove translationese)
+> /humanize <text or file path>
+> /humanize-detect <text>         # detection only
+> /refine-report                   # refine the most recent report
+> AI 티 없애줘                     # natural-language trigger
 ```
 
-> ⚠ **License notice**: The upstream repository does not include a LICENSE file. This package does **not** redistribute the upstream content; the install script downloads files directly from the upstream GitHub raw URLs into the user's environment at install time. Copyright remains with the original author and use is at the user's responsibility. The script requires explicit consent before proceeding.
+> ℹ **License**: The upstream repo [`gaebalai/im-not-ai`](https://github.com/gaebalai/im-not-ai) is distributed under the **MIT License**. This package does not redistribute the upstream content; the install script downloads files directly from the upstream GitHub raw URLs into the user's environment at install time, and also fetches the upstream LICENSE file as a local copy.
 >
-> ⚠ **Upstream tracking risk**: The installer fetches the `main` branch of `epoko77-ai/im-not-ai`. Any future upstream change (including malicious code) will land in the user's environment on the next install/reinstall. For production use, review upgrades carefully after the initial install. (Pinning to a specific commit will be added in a future release.)
+> ⚠ **Upstream tracking note**: The installer fetches the `main` branch of `gaebalai/im-not-ai`. Any future upstream change will land in the user's environment on the next install/reinstall. For production use, review upgrades carefully after the initial install. (Pinning to a specific commit is planned for a 0.4.0+ milestone.)
 
 ### 2. Slash Commands (`commands/`)
 
 | Command | Purpose | Example Argument |
 |---|---|---|
-| `/analyze-business` | Full strategy analysis + auto report save | `MVP launch prep 2-week tasks` |
-| `/design-pricing` | 3-tier pricing with KRW, VAT, annual discount | `SMB B2C SaaS` |
-| `/benchmark-competitors` | Korean competitor benchmark (3C + SWOT) | `No-code website builders` |
-| `/prioritize-features` | RICE + Pareto-based prioritization | `Select 3 of 7 features` |
+| `/analyze-business` | Full strategy analysis + auto report save + (optional) Korean refinement | `MVP launch prep 2-week tasks` |
+| `/design-pricing` | 3-tier pricing with KRW, VAT, annual discount + (optional) Korean refinement | `SMB B2C SaaS` |
+| `/benchmark-competitors` | Korean competitor benchmark (3C + SWOT) + (optional) Korean refinement | `No-code website builders` |
+| `/prioritize-features` | RICE + Pareto-based prioritization + (optional) Korean refinement | `Select 3 of 7 features` |
+| `/refine-report` 🆕 | Post-process an existing report through humanize-korean (saves `*-refined.md`) | (defaults to most recent report) |
+
+> The "Korean refinement" step only runs if the `humanize-korean` skill is installed; otherwise a one-line hint is shown and the step is skipped. Install: `npx consultant-kr-cli@latest humanize --local`
 
 ### 3. Hooks (`hooks/`)
 

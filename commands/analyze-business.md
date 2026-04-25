@@ -1,7 +1,7 @@
 ---
-description: consultant-kr 에이전트로 현재 프로젝트 전체 사업 전략 분석 후 리포트 저장
+description: consultant-kr 에이전트로 현재 프로젝트 전체 사업 전략 분석 후 리포트 저장 + (옵션) 한국어 윤문
 argument-hint: [분석 초점 — 선택사항, 예: "MVP 론칭 전략" 또는 "가격 재설계"]
-allowed-tools: Task, Bash(mkdir:*), Bash(date:*), Write
+allowed-tools: Task, Bash(mkdir:*), Bash(date:*), Bash(test:*), Bash(ls:*), Read, Write
 ---
 
 # 사업 전략 분석 실행
@@ -38,8 +38,20 @@ allowed-tools: Task, Bash(mkdir:*), Bash(date:*), Write
    - 논점 정의(1번 섹션) 원문
    - 추천 시책(6번 섹션) 핵심 3줄
 
+5. **한국어 윤문 (humanize-korean 스킬 활용 — 옵트인)**
+   - 다음 경로 중 하나에 `SKILL.md` 가 존재하는지 확인:
+     - `~/.claude/skills/humanize-korean/SKILL.md`
+     - `./.claude/skills/humanize-korean/SKILL.md`
+   - **존재하면**: humanize-korean 스킬을 호출하여 방금 저장한 리포트 본문에 윤문 적용
+     - 절대 변경 금지: 수치, 가격, 고유명사, 표 데이터, 메타데이터 블록
+     - 윤문 결과를 `./reports/analysis-{YYYYMMDD-HHMM}-refined.md` 로 별도 저장 (원본 보존)
+     - 출력에 두 파일 경로 모두 표시
+   - **존재하지 않으면**: 단계 건너뛰고 한 줄 안내만:
+     - `💡 한국어 윤문을 추가하려면: npx consultant-kr-cli humanize --local`
+
 ## 실행 제약
 
 - 리포트 저장 전 반드시 `mkdir -p ./reports` 로 디렉토리 보장
 - 파일 시각은 KST 기준 (`date +%Y%m%d-%H%M`)
 - consultant-kr 에이전트가 호출되지 않으면 즉시 중단하고 `/agents`로 설치 상태 확인 안내
+- humanize 단계는 옵트인 — 스킬 미설치 시 에러 없이 건너뜀

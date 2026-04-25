@@ -1,7 +1,7 @@
 ---
-description: 이슈 드리븐 + 파레토 원칙으로 기능/과제 우선순위 판단
+description: 이슈 드리븐 + 파레토 원칙으로 기능/과제 우선순위 판단 + (옵션) 한국어 윤문
 argument-hint: <판단 대상> (예: "다음 스프린트 기능 5개 중 3개 선정")
-allowed-tools: Task, Read, Grep, Glob
+allowed-tools: Task, Read, Grep, Glob, Bash(test:*)
 ---
 
 # 기능 우선순위 판단
@@ -70,3 +70,16 @@ allowed-tools: Task, Read, Grep, Glob
 - 선정 기준을 정량화해야 함 (감으로 판단 금지)
 - 탈락 기능에도 명확한 이유 제시 (의사결정 추적 가능성 확보)
 - 선정 개수는 **사용자가 지정한 개수를 반드시 준수**
+
+## 한국어 윤문 (humanize-korean 스킬 활용 — 옵트인)
+
+위 결과를 사용자에게 출력한 직후, 다음 경로 중 하나에 `SKILL.md` 가 존재하는지 확인한다:
+- `~/.claude/skills/humanize-korean/SKILL.md`
+- `./.claude/skills/humanize-korean/SKILL.md`
+
+**존재하면**: `humanize-korean` 스킬을 호출하여 위 결과의 한국어 서술 부분에만 윤문을 적용한 뒤, "🪶 한국어 윤문본" 섹션으로 추가 출력한다. 원본 결과는 그대로 유지.
+
+**존재하지 않으면**: 단계 건너뛰고 마지막에 한 줄 안내만:
+- `💡 한국어 윤문 추가: npx consultant-kr-cli humanize --local`
+
+**윤문 시 절대 변경 금지**: 기능명, RICE 점수와 평가 테이블의 모든 수치, 결정값(선정/보류/탈락), Phase 번호. 자연어 설명 문장만 다듬는다.

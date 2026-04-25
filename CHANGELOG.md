@@ -11,9 +11,46 @@
 ### 계획
 - Discord · Telegram 알림 Hook
 - Humanize KR upstream pinning (특정 commit SHA 또는 tag 옵션)
+- Node.js 기반 단일 설치 로직 (Windows 네이티브 지원 검토)
 
-### 결정 사항
-- **Windows 네이티브 PowerShell 미지원 정책 확정** — 패키지의 핵심 가치인 Hook 4종이 bash 스크립트라 PowerShell 설치 스크립트만 추가해도 Hook 미작동으로 사용자 혼란 가중. WSL2 + Ubuntu 권장으로 정리. 향후 Node.js 기반 단일 설치 로직 재작성은 0.4.0+ 마일스톤에서 검토.
+---
+
+## [0.4.0] - 2026-04-25
+
+### 추가
+- **분석 커맨드 4종 + 한국어 윤문 통합 (옵트인)**
+  - `/analyze-business` · `/design-pricing` · `/benchmark-competitors` · `/prioritize-features` 모두에 후처리 단계 추가
+  - 동작: 결과 출력 후 `humanize-korean` 스킬 설치 여부 자동 감지
+    - 설치돼 있으면 한국어 윤문 적용 (수치·가격·고유명사·표 데이터는 절대 변경 금지)
+    - 미설치면 한 줄 안내만 출력하고 건너뜀
+  - `/analyze-business` 는 윤문본을 `reports/*-refined.md` 로 별도 저장 (원본 보존)
+  - 나머지 3개는 화면에 "🪶 한국어 윤문본" 섹션으로 추가 출력
+- **새 슬래시 커맨드 `/refine-report`**
+  - 기존 `reports/*.md` 또는 임의 마크다운을 사후 윤문
+  - 인자 없이 호출하면 가장 최근 리포트 자동 선택
+  - 결과는 `<원본>-refined.md` 로 저장, 메타 블록에 윤문 출처 명시
+
+### 수정
+- **`install-humanize.sh` upstream 전환**: `epoko77-ai/im-not-ai` → [`gaebalai/im-not-ai`](https://github.com/gaebalai/im-not-ai)
+  - 라이선스: 미명시 → **MIT** (재배포 자유, 고지문 톤 완화)
+  - 신규 fetch 항목: `commands/humanize*.md` 6개 (`/humanize`, `/humanize-detect`, `/humanize-redo`, `/humanize-status`, `/humanize-list`, `/humanize-web`)
+  - LICENSE 사본도 `LICENSE-humanize-kr` 로 함께 받아 보존
+  - 디렉터리 구조: 원본의 `.claude/agents/` · `.claude/skills/` → fork의 `agents/` · `commands/` · `skills/` (루트) 로 매핑
+
+### 통합 흐름
+
+```bash
+# 1. 본체 + 윤문 스킬 설치 (각 1회)
+npx consultant-kr-cli@latest --local
+npx consultant-kr-cli@latest humanize --local
+
+# 2. 분석 호출 한 번이면 윤문까지 끝
+/analyze-business 템플릿 기반 홈페이지 빌더 진입 전략
+
+# 3. 기존 리포트를 사후 윤문하고 싶을 때
+/refine-report
+/refine-report reports/analysis-20260425-1430.md
+```
 
 ---
 

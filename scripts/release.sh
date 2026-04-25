@@ -3,7 +3,7 @@
 # release.sh — 버전 릴리스 자동화
 # ============================================================
 # 사용법:
-#   ./scripts/release.sh 0.3.0
+#   ./scripts/release.sh 0.4.0
 # ============================================================
 
 set -euo pipefail
@@ -12,12 +12,12 @@ VERSION="${1:-}"
 
 if [ -z "$VERSION" ]; then
   echo "사용법: $0 <version>"
-  echo "예: $0 0.3.0"
+  echo "예: $0 0.4.0"
   exit 1
 fi
 
 if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  echo "오류: 버전은 Semantic Versioning 형식이어야 함 (예: 0.3.0)"
+  echo "오류: 버전은 Semantic Versioning 형식이어야 함 (예: 0.4.0)"
   exit 1
 fi
 

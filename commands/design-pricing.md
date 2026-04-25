@@ -1,7 +1,7 @@
 ---
-description: 한국 SaaS 시장 기준 가격 정책 설계 (B2C/B2B, 3단계 구조)
+description: 한국 SaaS 시장 기준 가격 정책 설계 (B2C/B2B, 3단계 구조) + (옵션) 한국어 윤문
 argument-hint: <타깃 세그먼트> (예: "소상공인 B2C" / "중소기업 B2B SaaS" / "엔터프라이즈")
-allowed-tools: Task, Read, Grep, Glob
+allowed-tools: Task, Read, Grep, Glob, Bash(test:*)
 ---
 
 # 가격 전략 설계
@@ -45,3 +45,16 @@ allowed-tools: Task, Read, Grep, Glob
 - [ ] "두 안 모두 유효" 같은 모호한 추천이 없는가
 
 누락 항목이 있으면 에이전트 재호출로 보완.
+
+## 한국어 윤문 (humanize-korean 스킬 활용 — 옵트인)
+
+위 결과를 사용자에게 출력한 직후, 다음 경로 중 하나에 `SKILL.md` 가 존재하는지 확인한다:
+- `~/.claude/skills/humanize-korean/SKILL.md`
+- `./.claude/skills/humanize-korean/SKILL.md`
+
+**존재하면**: `humanize-korean` 스킬을 호출하여 위 결과의 한국어 서술 부분에만 윤문을 적용한 뒤, "🪶 한국어 윤문본" 섹션으로 추가 출력한다. 원본 결과는 그대로 유지.
+
+**존재하지 않으면**: 단계 건너뛰고 마지막에 한 줄 안내만:
+- `💡 한국어 윤문 추가: npx consultant-kr-cli humanize --local`
+
+**윤문 시 절대 변경 금지**: 가격/수치(₩9,900 등), 경쟁사명, 표 데이터, VAT 표기. 자연어 설명 문장만 다듬는다.

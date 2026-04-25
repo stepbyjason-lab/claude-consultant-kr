@@ -1,7 +1,7 @@
 ---
-description: 국내 경쟁사 대비 현 프로젝트의 강점/약점 분석 (3C + SWOT)
+description: 국내 경쟁사 대비 현 프로젝트의 강점/약점 분석 (3C + SWOT) + (옵션) 한국어 윤문
 argument-hint: <비교 대상 카테고리> (예: "노코드 홈페이지 빌더" / "B2B 협업툴" / "이커머스")
-allowed-tools: Task, Read, Grep, Glob, WebSearch, WebFetch
+allowed-tools: Task, Read, Grep, Glob, WebSearch, WebFetch, Bash(test:*)
 ---
 
 # 경쟁사 벤치마킹 분석
@@ -70,3 +70,16 @@ allowed-tools: Task, Read, Grep, Glob, WebSearch, WebFetch
 - 경쟁사 정보는 **공개 자료(홈페이지, 블로그, 뉴스)** 범위로 한정
 - 추측으로 경쟁사의 내부 지표(MAU, 매출)를 단정하지 말 것
 - 불확실한 정보는 "추정" 표시
+
+## 한국어 윤문 (humanize-korean 스킬 활용 — 옵트인)
+
+위 결과를 사용자에게 출력한 직후, 다음 경로 중 하나에 `SKILL.md` 가 존재하는지 확인한다:
+- `~/.claude/skills/humanize-korean/SKILL.md`
+- `./.claude/skills/humanize-korean/SKILL.md`
+
+**존재하면**: `humanize-korean` 스킬을 호출하여 위 결과의 한국어 서술 부분에만 윤문을 적용한 뒤, "🪶 한국어 윤문본" 섹션으로 추가 출력한다. 원본 결과는 그대로 유지.
+
+**존재하지 않으면**: 단계 건너뛰고 마지막에 한 줄 안내만:
+- `💡 한국어 윤문 추가: npx consultant-kr-cli humanize --local`
+
+**윤문 시 절대 변경 금지**: 경쟁사명/제품명, 표 데이터, SWOT 매트릭스, 3C 항목 헤더, "추정" 표기. 자연어 설명 문장만 다듬는다.

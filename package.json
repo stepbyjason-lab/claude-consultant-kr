@@ -1,6 +1,6 @@
 {
   "name": "consultant-kr-cli",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "한국 시장 컨텍스트로 맥킨지식 사업 전략을 분석하는 비공식 Claude Code 에이전트 패키지 (Claude is a trademark of Anthropic, PBC)",
   "bin": {
     "consultant-kr-cli": "bin/cli.js"
