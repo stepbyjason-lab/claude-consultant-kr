@@ -295,3 +295,38 @@ MIT © [gaebalai](https://github.com/gaebalai)
 ---
 
 **Made with ❤️ by [gaebalai](https://github.com/gaebalai) — AI-fluent liberal arts Engineer**
+
+---
+
+## 🔌 이 포크에 대하여 (fork + minimal-additive)
+
+이 저장소는 [`gaebalai/claude-consultant-kr`](https://github.com/gaebalai/claude-consultant-kr)의 개인 공개 포크입니다. 원작을 새로 저술한 것이 아니라, **원본 콘텐츠를 그대로 유지한 채 Claude Code 플러그인 발견 규약에 맞추기 위한 최소 추가(minimal-additive) 변경만** 더했습니다.
+
+### 수정 목적
+
+원본 `agents/`·`commands/` 구조를 옮기거나 고치지 않고, Claude Code가 marketplace/plugin 메커니즘으로 바로 설치·발견할 수 있도록 노출하기 위함입니다.
+
+### 변경 내역
+
+- `.claude-plugin/plugin.json` 신규 추가 — `agents`는 기존 `./agents/`, `commands`는 기존 `./commands/`를 그대로 참조합니다.
+- `.claude-plugin/marketplace.json` 신규 추가 — 같은 레포를 가리키는 self-marketplace(`"source": "./"`)입니다. 별도 marketplace 레포는 만들지 않았습니다.
+- `hooks/`는 이번 매니페스트에 **의도적으로 포함하지 않았습니다.** `hooks/settings.json`은 프로젝트 `.claude/settings.json`으로 손복사(copy-install)하도록 저술된 파일이라(`.claude/hooks/scripts/...` 하드코딩 경로, `${CLAUDE_PLUGIN_ROOT}` 미사용) 플러그인 hooks 매니페스트로 그대로 노출하면 런타임에서 스크립트를 찾지 못해 작동하지 않습니다. hooks 플러그인 배선은 후속 라운드로 넘깁니다.
+- 그 외 upstream 파일은 이동·이름변경·수정하지 않았습니다.
+
+### upstream 업데이트 방법
+
+```
+git fetch upstream
+git merge upstream/main
+git push origin main
+```
+
+push 후 marketplace/plugin은 git SHA 기준으로 최신 커밋을 따라가며, 이 포크에서 별도 재설치 없이 갱신됩니다.
+
+### 원저자 크레딧
+
+원저자는 [`gaebalai`](https://github.com/gaebalai)이며, 정본 upstream은 [`gaebalai/claude-consultant-kr`](https://github.com/gaebalai/claude-consultant-kr)입니다. 이 저장소는 그 원작에 대한 **fork + minimal-additive**이며, 원작을 새로 저술한 것으로 오인되어서는 안 됩니다.
+
+### 라이선스
+
+기존 MIT LICENSE를 수정 없이 그대로 보존했습니다.

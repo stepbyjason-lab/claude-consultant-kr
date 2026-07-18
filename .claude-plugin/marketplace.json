@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "claude-consultant-kr",
+  "owner": {
+    "name": "gaebalai",
+    "url": "https://github.com/gaebalai"
+  },
+  "metadata": {
+    "description": "한국 시장 컨텍스트로 맥킨지식 사업 전략을 분석하는 비공식 Claude Code 에이전트 패키지"
+  },
+  "plugins": [
+    {
+      "name": "claude-consultant-kr",
+      "source": "./",
+      "description": "맥킨지 · BCG식 사고 체계를 Claude Code에 이식한 한국 시장 사업 전략 분석 에이전트/커맨드 번들",
+      "author": {
+        "name": "gaebalai",
+        "url": "https://github.com/gaebalai"
+      },
+      "homepage": "https://github.com/gaebalai/claude-consultant-kr",
+      "repository": "https://github.com/gaebalai/claude-consultant-kr",
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": [
+        "claude-code",
+        "agent",
+        "korean",
+        "consultant",
+        "business-strategy",
+        "mckinsey"
+      ]
+    }
+  ]
+}

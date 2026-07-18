@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "claude-consultant-kr",
+  "description": "한국 시장 컨텍스트로 맥킨지식 사업 전략을 분석하는 비공식 Claude Code 에이전트 패키지 (Claude is a trademark of Anthropic, PBC)",
+  "author": {
+    "name": "gaebalai",
+    "url": "https://github.com/gaebalai"
+  },
+  "homepage": "https://github.com/gaebalai/claude-consultant-kr",
+  "repository": "https://github.com/gaebalai/claude-consultant-kr",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "agent",
+    "korean",
+    "consultant",
+    "business-strategy",
+    "mckinsey"
+  ],
+  "agents": ["./agents/"],
+  "commands": ["./commands/"]
+}
