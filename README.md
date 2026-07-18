@@ -308,7 +308,7 @@ MIT © [gaebalai](https://github.com/gaebalai)
 
 ### 변경 내역
 
-- `.claude-plugin/plugin.json` 신규 추가 — 기존 `agents/`·`commands/` 디렉터리는 Claude Code 플러그인 표준 규약(convention directory)으로 자동 발견되므로 별도 경로 선언 없이 그대로 노출됩니다. (참고: 플러그인 매니페스트 스키마의 `agents`/`commands` 필드는 표준 디렉터리 밖의 *추가* `.md` 파일 하나하나를 가리키는 용도라 디렉터리 경로를 넣으면 스키마 검증에 실패합니다 — 표준 디렉터리명과 일치하므로 필드 자체를 생략했습니다.)
+- `.claude-plugin/plugin.json` 신규 추가 — 기존 `agents/`·`commands/` 디렉터리는 Claude Code 플러그인 표준 규약(convention directory)으로 자동 발견되므로 별도 경로 선언이 필요 없습니다. 다만 `agents/industry/*.md`(산업별 특화 에이전트 4종: construction·ecommerce·fintech·healthcare)는 표준 디렉터리 한 단계 아래 중첩되어 있어 자동 발견 범위 밖이므로, 스키마가 허용하는 개별 `.md` 파일 경로로 `agents` 필드에 명시적으로 나열해 노출을 보존했습니다. (참고: 플러그인 매니페스트 스키마의 `agents`/`commands` 필드는 표준 디렉터리 밖의 *추가* 파일 하나하나를 가리키는 용도이며 디렉터리 경로는 받지 않습니다.)
 - `.claude-plugin/marketplace.json` 신규 추가 — 같은 레포를 가리키는 self-marketplace(`"source": "./"`)입니다. 별도 marketplace 레포는 만들지 않았습니다.
 - `hooks/`는 이번 매니페스트에 **의도적으로 포함하지 않았습니다.** `hooks/settings.json`은 프로젝트 `.claude/settings.json`으로 손복사(copy-install)하도록 저술된 파일이라(`.claude/hooks/scripts/...` 하드코딩 경로, `${CLAUDE_PLUGIN_ROOT}` 미사용) 플러그인 hooks 매니페스트로 그대로 노출하면 런타임에서 스크립트를 찾지 못해 작동하지 않습니다. hooks 플러그인 배선은 후속 라운드로 넘깁니다.
 - 그 외 upstream 파일은 이동·이름변경·수정하지 않았습니다.
