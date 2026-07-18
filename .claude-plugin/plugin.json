@@ -16,7 +16,5 @@
     "consultant",
     "business-strategy",
     "mckinsey"
-  ],
-  "agents": ["./agents/"],
-  "commands": ["./commands/"]
+  ]
 }
