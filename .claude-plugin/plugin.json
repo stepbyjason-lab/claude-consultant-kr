@@ -16,11 +16,5 @@
     "consultant",
     "business-strategy",
     "mckinsey"
-  ],
-  "agents": [
-    "./agents/industry/consultant-kr-construction.md",
-    "./agents/industry/consultant-kr-ecommerce.md",
-    "./agents/industry/consultant-kr-fintech.md",
-    "./agents/industry/consultant-kr-healthcare.md"
   ]
 }
